@@ -40,8 +40,9 @@ const DetailsScreen = ({ navigation }) => {
     
     await db.collection("Hotel").doc(params.id)
       .get()
-      .then((res) => {
-        
+      .then((res) =>
+      
+      {
         let data = {
           title: res.data().title,
           beds: res.data().beds,

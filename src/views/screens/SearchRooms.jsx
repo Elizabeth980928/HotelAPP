@@ -162,6 +162,13 @@ const searchroom = ({ navigation, route }) => {
   return (
     <>
       <SafeAreaView>
+      <View style={{width:"100%",height:250}}>
+        <Image
+          source={require("../../../components/pic1.jpeg")}
+          style={style.image}
+          resizeMode="cover"
+        />
+      </View>
         <View style={style.container}>
           <View style={style.checkin}>
             <Text style={style.checkInText}>Check - In</Text>
@@ -334,6 +341,12 @@ const style = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "white",
   },
+  image: {
+    height: "100%",
+    width: "100%",
+    borderBottomLeftRadius: 100,
+    flex: 1,
+  },
 
   pic: {
    
@@ -348,8 +361,8 @@ const style = StyleSheet.create({
     backgroundColor: "brown",
     marginTop: 50,
     // marginLeft:52,
-    width: "40%",
-    height: "20%",
+    width: "30%",
+    height: "5%",
     borderRadius: 5,
     marginLeft: "30%",
     color:'white'
@@ -358,6 +371,7 @@ const style = StyleSheet.create({
     fontWeight: "normal",
     marginLeft: "25%",
     color: 'white'
+    
   },
   datePicker: {
     marginLeft: 20,

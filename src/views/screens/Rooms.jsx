@@ -27,7 +27,6 @@ const Rooms = ({ navigation, route }) => {
   const house = route.params;
   const item = route.params;
   const title = route.params.title;
-
   const params = useRoute().params;
   
   console.log(title);

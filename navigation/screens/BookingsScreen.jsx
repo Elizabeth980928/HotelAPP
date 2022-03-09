@@ -182,11 +182,11 @@ const HomeScreen = ({ navigation, route }) => {
                 <Icon name="bathtub" size={18} />
                 <Text style={style.facilityText}>2</Text>
               </View> */}
-              <View style={style.facility}>
+              {/* <View style={style.facility}>
                 <Icon name="aspect-ratio" size={18} />
                 <Text style={style.facilityText}>100m</Text>
-              </View>
-              <View style ={{paddingLeft:100,paddingTop:20}}>
+              </View> */}
+              <View style ={{paddingLeft:180,paddingTop:10}}>
               <TouchableOpacity
                  onPress={() => navigation.navigate("Map")}
                 activeOpacity={0.7}>

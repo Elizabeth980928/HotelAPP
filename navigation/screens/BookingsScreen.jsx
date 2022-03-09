@@ -125,7 +125,7 @@ const HomeScreen = ({ navigation, route }) => {
     return (
       <Pressable
         activeOpacity={0.8}
-        onPress={() => navigation.navigate("Rooms", house)}
+        onPress={() => navigation.navigate("Rooms")}
         //onPress={() => navigation.navigate("SearchRooms")}
       >
         <View>
@@ -139,8 +139,8 @@ const HomeScreen = ({ navigation, route }) => {
               <Text>{element.location}</Text> */}
               {/* <Text>{element.price}</Text> */}
           
-
-        <View style={[style.card,{marginVertical:5}]}>
+<TouchableOpacity onPress={() => navigation.navigate("SearchRooms",{title:element.title,price:element.price})}>
+        <View style={[style. card,{marginVertical:10}]}>
           {/* House image */}
         
           <Image source={{uri: element.url} } style={style.cardImage} />
@@ -202,6 +202,7 @@ const HomeScreen = ({ navigation, route }) => {
             </View>
           </View>
         </View>
+        </TouchableOpacity>
         </>
           ))}
         </View>
@@ -277,7 +278,7 @@ const HomeScreen = ({ navigation, route }) => {
           </Text>
         </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView >
         <View>
           {/* Input and sort button container */}
           <View
@@ -314,7 +315,6 @@ const HomeScreen = ({ navigation, route }) => {
             snapToInterval={width - 20}
             showHorcrollIndicator={false}
             contentContainerStyle={{ paddingLeft: 20, paddingHorizontal: 20 }}
-            horizontal
             data={houses}
             renderItem={({ item }) => <Card house={item} />}
           />

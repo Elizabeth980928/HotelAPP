@@ -20,11 +20,17 @@ import houses from "../../consts/houses";
 //import hotels from '../../consts/hotels';
 import firebase from "firebase";
 import BookingScreen from "../../../navigation/screens/BookingsScreen";
+import { useRoute } from "@react-navigation/native";
 
 const { width } = Dimensions.get("screen");
 const Rooms = ({ navigation, route }) => {
   const house = route.params;
   const item = route.params;
+  const title = route.params.title;
+
+  const params = useRoute().params;
+  
+  console.log(title);
 
   const InteriorCard = ({ interior }) => {
     return <Image source={interior} style={style.interiorImage} />;
@@ -35,6 +41,7 @@ const Rooms = ({ navigation, route }) => {
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
+    console.log(params.checkinData);
     let hotelInfo = [];
     db.collection("Hotel")
       .get()
@@ -50,79 +57,47 @@ const Rooms = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View style={{ flex: 1, backgroundColor: colors.white }}>
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: "bold",
-            paddingLeft: 150,
-          }}
-        >
-          Rooms
-        </Text>
-
+        <View style={{ alignItems: "center" }}>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: "bold",
+            }}
+          >
+            {title} Rooms
+          </Text>
+        </View>
         {/* House image */}
         {hotels.map((element) => (
           <>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate("DetailsScreen", {id:element.id})}
+              onPress={() =>
+                navigation.navigate("DetailsScreen", {
+                  id: element.id,
+                  url: element.url2,
+                  checkinData: params.checkinData,
+                })
+              }
             >
               <View style={style.backgroundImageContainer}>
                 <ImageBackground
                   style={style.backgroundImage}
                   source={{ uri: element.url2 }}
-                >
-                  <View style={style.header}>
-                    {/* <View style={style.headerBtn}>
-                  <Icon
-                    name="arrow-back-ios"
-                    size={20}
-                    onPress={navigation.goBack}
-                  />
-                </View> */}
-                  </View>
-                </ImageBackground>
-              </View>
+                ></ImageBackground>
 
-              <View style={style.detailsContainer}>
-                {/* Name and rating view container */}
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
+
+                    
                   }}
                 >
-                  <Text
-                    style={{ fontSize: 18, fontWeight: "bold", marginTop: -30 }}
-                  >
-                    {element.Room}
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginTop: -40,
-                    }}
-                  ></View>
+                  <Text style={{ fontWeight: "bold"}}>{element.Room}</Text>
+                  <Text style ={{paddingLeft: 120,color:'purple'}}>R{element.price} Per night</Text>
                 </View>
 
-                <Text
-                  style={{ marginTop: 20, color: colors.grey, marginTop: 20 }}
-                ></Text>
-                <View style={{ marginTop: -20, fontSize: 2, marginTop: -20 }}>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      color: "purple",
-                      fontWeight: "bold",
-                      marginTop: -12,
-                    }}
-                  >
-                    R{element.price}
-                  </Text>
-
-                  <View></View>
-                </View>
               </View>
             </TouchableOpacity>
           </>
@@ -134,12 +109,12 @@ const Rooms = ({ navigation, route }) => {
 
 const style = StyleSheet.create({
   backgroundImageContainer: {
-    elevation: 20,
-    marginHorizontal: 20,
-    marginTop: 25,
+    elevation: 3,
+    margin: 20,
+    // marginTop: 25,
     alignItems: "center",
-    height: 100,
-    width: 300,
+    height: 200,
+    width: "90%",
   },
   backgroundImage: {
     height: "100%",

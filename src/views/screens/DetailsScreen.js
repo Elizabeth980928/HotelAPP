@@ -22,14 +22,20 @@ import BookingScreen from "../../../navigation/screens/BookingsScreen";
 import firebase from "firebase";
 import { useRoute } from "@react-navigation/native";
 
-const { width } = Dimensions.get("screen");
-const DetailsScreen = ({ navigation }) => {
 
-  const params = useRoute().params
-  const house = params;
-  const item = params;
+const { width } = Dimensions.get("screen");
+const DetailsScreen = ({ navigation, route }) => {
+
+  const id = route.params.id;
+  const url = route.params.url;
+  const params = useRoute().params;
+  console.log ("----", url);
+  console.log(id)
+  // const params = useRoute().params
+  // const house = params;
+  // const item = params;
   const InteriorCard = ({ interior }) => {
-    return <Image source={interior} style={style.interiorImage} />;
+    return <Image source={{url:url}} style={style.interiorImage} />;
   };
   const [date, setDate] = useState(new Date());
 
@@ -63,14 +69,14 @@ const DetailsScreen = ({ navigation }) => {
 
   return (
     <ScrollView>
-      {/* <View style={{ flex: 1, backgroundColor: colors.white }}>
+      <View style={{ flex: 1, backgroundColor: colors.white }}>
         <ScrollView showsVerticalScrollIndicator={false}>
          
 
           <View style={style.backgroundImageContainer}>
             <ImageBackground
               style={style.backgroundImage}
-              source={{uri: null} } 
+              source={{uri:url} } 
             >
               <View style={style.header}>
                 <View style={style.headerBtn}>
@@ -91,7 +97,8 @@ const DetailsScreen = ({ navigation }) => {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                {hotels.title}
+               Lovers
+                {/* {hotels.title} */}
               </Text>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <View style={style.ratingTag}>
@@ -105,7 +112,8 @@ const DetailsScreen = ({ navigation }) => {
 
            
             <Text style={{ fontSize: 16, color: colors.grey }}>
-              {hotels.location}
+              {/* {hotels.location} */}
+              Lovers
             </Text>
 
            
@@ -131,9 +139,9 @@ const DetailsScreen = ({ navigation }) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               keyExtractor={(_, key) => key.toString()}
-              data={element.interior}
+              //  data={element.interior}
               renderItem={({ item }) => <InteriorCard interior={item} />}
-            />
+            /> 
 
             <View style={style.footer}>
               <View>
@@ -144,7 +152,7 @@ const DetailsScreen = ({ navigation }) => {
                     fontSize: 18,
                   }}
                 >
-                 {/* R{item?.price}  <Text>R 3500</Text> 
+          R{houses?.price}  <Text>3500</Text> 
                 </Text>
                 <Text
                   style={{
@@ -165,7 +173,7 @@ const DetailsScreen = ({ navigation }) => {
                   }}
                 >
                    <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                    {house?.title}
+                    {houses?.title}
                   </Text>  
                 </View>
               </View>
@@ -175,28 +183,29 @@ const DetailsScreen = ({ navigation }) => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(_, key) => key.toString()}
-                data={house?.interiors}
+                data={houses?.interiors}
                 renderItem={({ item }) => <InteriorCard interior={item} />}
               />
 
-               {/* {/* <TouchableOpacity
-                onPress={() => navigation.navigate("Payment",{'price':'R 3500'})}
+               {/* <TouchableOpacity
+                onPress={() => navigation.navigate("Payment")}
                 activeOpacity={0.7}
-                style={{ paddingLeft: 150 }}
-              ></TouchableOpacity>  
+                style={{ paddingLeft: 120 }}
+              ><Text>testing</Text></TouchableOpacity>   */}
               <View style={style.bookNowBtn}> 
               
 
                 <TouchableOpacity 
-                  onPress={() => navigation.navigate("Payment",{'price':'R3500'})}
+                  onPress={() => navigation.navigate("Payment",{checkinData:params.checkinData, roomData:hotels})}
                   activeOpacity={0.7}
                 >
                   <Text style={{ color: colors.white }}>Reserve</Text>
                 </TouchableOpacity>
               </View>
             </View>
+            </View>
         </ScrollView>
-      </View> */}
+      </View>
     </ScrollView>
   );
 };
@@ -267,9 +276,11 @@ const style = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.purple,
     borderRadius: 10,
-    paddingHorizontal: 10,
-    width: 110,
+    paddingHorizontal: 5,
+    width: 100,
     height: 37,
+    
+    
   },
   iconContainer: {
     position: "absolute",

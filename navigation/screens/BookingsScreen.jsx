@@ -125,7 +125,12 @@ const HomeScreen = ({ navigation, route }) => {
     return (
       <Pressable
         activeOpacity={0.8}
-        onPress={() => navigation.navigate("Rooms")}
+        onPress={() =>
+         navigation.navigate("Rooms", {
+           id:element.id,
+           url: element.url,
+         })
+         }
         //onPress={() => navigation.navigate("SearchRooms")}
       >
         <View>

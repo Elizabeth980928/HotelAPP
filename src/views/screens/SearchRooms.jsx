@@ -1,132 +1,5 @@
-// import React, { useState } from "react";
-// import {
-//   View,
-//   Text,
-//   StyleSheet,
-//   TextInputComponent,
-//   ImageBackground,
-//   Pressable,
-//   TextInput,
-// } from "react-native";
 
-// import { SafeAreaView } from "react-native-safe-area-context";
-
-// import DatePicker from "react-native-datepicker";
-// import Feather from "react-native-vector-icons/Feather";
-// import { TouchableOpacity } from "react-native-gesture-handler";
-// const SearchRooms = ({ navigation, route }) => {
-//   const [date, setDate] = useState();
-//   const [guest, setGuest] = useState();
-
-//   const [noGuest,setNoGuset] = useState();
-//   return (
-//     <>
-//       <SafeAreaView style={style.container}>
-//         <View>
-//           <Text>am SearchRooms</Text>
-//           <View
-//             style={{ flexDirection: "row", justifyContent: "space-between" }}
-//           >
-//             <DatePicker
-//               style={{ width: 165 }}
-//               date={date}
-//               mode="date"
-//               // placeholder="check in"
-//               format="YYYY-MM-DD"
-//               // minDate="0"
-//               // maxDate="0"
-//               confirmBtnText="Confirm"
-//               cancelBtnText="Cancel"
-//               customStyles={{
-//                 dateIcon: {
-//                   position: "absolute",
-//                   left: 0,
-//                   top: 4,
-//                   marginLeft: 0,
-//                 },
-//                 dateInput: {
-//                   marginLeft: 36,
-//                 },
-//                 // ... You can check the source to find the other keys.
-//               }}
-//               onDateChange={(date) => {
-//                 setDate(date);
-//               }}
-//             />
-//             <DatePicker
-//               style={{ width: 165 }}
-//               date={date}
-//               mode="date"
-//               // placeholder="check in"
-//               format="YYYY-MM-DD"
-//               // minDate="0"
-//               // maxDate="0"
-//               confirmBtnText="Confirm"
-//               cancelBtnText="Cancel"
-//               customStyles={{
-//                 dateIcon: {
-//                   position: "absolute",
-//                   left: 0,
-//                   top: 4,
-//                   marginLeft: 0,
-//                 },
-//                 dateInput: {
-//                   marginLeft: 36,
-//                 },
-//                 // ... You can check the source to find the other keys.
-//               }}
-//               onDateChange={(date) => {
-//                 setDate(date);
-//               }}
-//             />
-//           </View>
-//           <View>
-
-//          <View style ={style.room}>
-//          <Text>Number Of Rooms</Text>
-//          <View
-//          style={{
-//            flexDirection: 'row',
-//            justifyContent: 'space-between',
-
-//          }}>
-
-//          </View>
-
-//          </View>
-
-//             <Feather name="plus" size={22} color="black" />
-//             <Feather name="minus" size={22} color="black" />
-//           </View>
-
-//           <Text>Number Of Guests</Text>
-//           <TouchableOpacity
-//           onPress={() => setGuest(Math.min(1,guest - 1))}>
-//            <Feather name="minus" size={22} color="black" />
-//           </TouchableOpacity>
-
-//           <TouchableOpacity
-//           onPress={() => setGuest(Math.max(1,guest + 1))}>
-//            <Feather name="plus" size={22} color="black" />
-//           </TouchableOpacity>
-
-//         </View>
-//       </SafeAreaView>
-//     </>
-//   );
-// };
-// const style = StyleSheet.create({
-//   container: {
-//     backgroundColor: "white",
-//     alignContent: "center",
-//     justifyContent: "center",
-//     display: "flex",
-//   },
-// });
-
-// export default SearchRooms;
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -141,8 +14,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Foundation";
 import Feather from "react-native-vector-icons/Feather";
 import DatePicker from "react-native-datepicker";
-
+import firebase from "firebase";
 import { Button, Image, Platform } from "react-native";
+import { useRoute } from "@react-navigation/native";
 // import * as ImagePicker from "expo-image-picker";
 // import { Avatar } from "react-native-elements/dist/avatar/Avatar";
 // import animated from 'react-native-reanimated'
@@ -150,55 +24,90 @@ import { Button, Image, Platform } from "react-native";
 const searchroom = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
   const [guest, setGuest] = useState(1);
-  const [checkin, setCheckin] = useState('');
-  const [checkout, setcheckout] = useState('');
+  const [checkin, setCheckin] = useState("");
+  const [checkout, setcheckout] = useState("");
   const [room, setRoom] = useState(1);
   const price = route.params.price;
   const house = route.params;
   const item = route.params;
   const title = route.params.title;
-  console.log(title);
+
+  const params = useRoute().params;
+
+  const id = route.params.id;
+  const url = route.params.url;
+  console.log ("----", url);
+  console.log(id)
+  const db = firebase.firestore();
+  const [hotels, setHotels] = useState();
+
+  useEffect(async() => {
+    
+    await db.collection("Hotel").doc(params.id)
+      .get()
+      .then((res) =>
+      
+      {
+        let data = {
+          title: res.data().title,
+          beds: res.data().beds,
+          interior: res.data().interior,
+          location: res.data().location,
+          price: res.data().price,
+          shower: res.data().shower,
+          url: res.data().url,
+          url2: res.data().url2,
+          url3: res.data().url3,
+          Room: res.data().Room,
+        }
+       setHotels(data);
+       console.log(data.Object.title,"==>>>>");
+      });
+
+  }, []);
 
   return (
     <>
-      <SafeAreaView>
-      <View style={{width:"100%",height:250}}>
-        <Image
-          source={require("../../../components/pic1.jpeg")}
-          style={style.image}
-          resizeMode="cover"
-        />
-      </View>
+      <SafeAreaView>  
+    
+        <View style={{ width: "100%", height: 250 }}>
+        
+          <Image
+             source={{uri:url} } 
+            style={style.image}
+            resizeMode="cover"
+          />
+        </View>
         <View style={style.container}>
           <View style={style.checkin}>
             <Text style={style.checkInText}>Check - In</Text>
 
             <View>
-            <DatePicker
-              style={style.datePicker}
-              date={date}
-              mode="date"
-              // placeholder="select date"
-              format="YYYY-MM-DD"
-              // minDate="2016-05-01"
-              // maxDate="2016-06-01"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: "absolute",
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0,
-                },
-                dateInput: {
-                  marginLeft: 36,
-                },
-              }}
-              onDateChange={(date) => {
-                setCheckin(date);
-              }}
-            />
+              <DatePicker
+                style={style.datePicker}
+                date={date}
+                mode="date"
+                // placeholder="select date"
+                format="YYYY-MM-DD"
+                // minDate="2016-05-01"
+                // maxDate="2016-06-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: "absolute",
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0,
+                  },
+                  dateInput: {
+                    marginLeft: 36,
+                  },
+                }}
+                onDateChange={(date) => {
+                  setCheckin(date);
+                }}
+              />
             </View>
           </View>
           <View style={style.checkOut}>
@@ -239,7 +148,7 @@ const searchroom = ({ navigation, route }) => {
               borderRadius: 10,
               marginLeft: 16,
               padding: 20,
-              color: 'white'
+              color: "white",
             }}
           >
             <View style={style.room}>
@@ -260,7 +169,7 @@ const searchroom = ({ navigation, route }) => {
                     style.btnadd,
                     { backgroundColor: "white", flexDirection: "row" },
                   ]}
-                  disabled={guest == 1? true:false}
+                  disabled={guest == 1 ? true : false}
                   onPress={() => setGuest(Math.max(1, guest - 1))}
                 >
                   <Feather name="minus" size={22} color="black" />
@@ -275,13 +184,11 @@ const searchroom = ({ navigation, route }) => {
                 >
                   <Feather name="plus" size={22} color="black" />
                 </TouchableOpacity>
-
-                 
               </View>
             </View>
 
             <View style={style.room}>
-              <Text style={style.roomText}>No Rooms   </Text>
+              <Text style={style.roomText}>No Rooms </Text>
               <View
                 style={{
                   flexDirection: "row",
@@ -312,17 +219,23 @@ const searchroom = ({ navigation, route }) => {
                 >
                   <Feather name="plus" size={22} color="black" />
                 </TouchableOpacity>
-            
               </View>
             </View>
-
-         
           </View>
           <TouchableOpacity
             style={style.bookNow}
             onPress={() =>
-              navigation.navigate("Rooms",{checkinData:{title : title,price:price, checkin:checkin, checkout:checkout, guest:guest}})
-            }>
+              navigation.navigate("Rooms", {
+                checkinData: {
+                  title: title,
+                  price: price,
+                  checkin: checkin,
+                  checkout: checkout,
+                  guest: guest,
+                },
+              })
+            }
+          >
             <Text style={style.bookText}>Search Room</Text>
           </TouchableOpacity>
         </View>
@@ -349,8 +262,6 @@ const style = StyleSheet.create({
   },
 
   pic: {
-   
-
     alignItems: "center",
     marginTop: 20,
     borderRadius: 200,
@@ -365,35 +276,33 @@ const style = StyleSheet.create({
     height: "5%",
     borderRadius: 5,
     marginLeft: "30%",
-    color:'white'
+    color: "white",
   },
   bookText: {
     fontWeight: "normal",
     marginLeft: "25%",
-    color: 'white'
-    
+    color: "white",
   },
   datePicker: {
     marginLeft: 20,
     backgroundColor: "white",
   },
   checkOut: {
-    marginLeft:40,
+    marginLeft: 40,
     flexDirection: "row",
     paddingTop: 10,
   },
   checkOutText: {
-    backgroundColor:'white',
+    backgroundColor: "white",
     paddingRight: 20,
     marginTop: 10,
-    fontSize:15
+    fontSize: 15,
   },
-  
 
   checkInText: {
     paddingRight: 20,
     marginTop: 10,
-    fontSize:15
+    fontSize: 15,
   },
   room: {
     flexDirection: "row",
@@ -404,9 +313,10 @@ const style = StyleSheet.create({
     marginTop: 8,
     paddingLeft: 20,
     paddingRight: 80,
-   color:'white',
-   fontSize: 15,
-   fontWeight:'bold'  },
+    color: "white",
+    fontSize: 15,
+    fontWeight: "bold",
+  },
   content: {
     //backgroundColor:"blue",
     marginTop: "40%",

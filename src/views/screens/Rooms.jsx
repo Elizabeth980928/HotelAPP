@@ -76,6 +76,8 @@ const Rooms = ({ navigation, route }) => {
                   id: element.id,
                   url: element.url2,
                   checkinData: params.checkinData,
+                  title:element.title,
+                  price:element.price
                 })
               }
             >

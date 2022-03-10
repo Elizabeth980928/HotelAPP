@@ -35,38 +35,14 @@ const DetailsScreen = ({ navigation, route }) => {
   // const house = params;
   // const item = params;
   const InteriorCard = ({ interior }) => {
-    return <Image source={{url:url}} style={style.interiorImage} />;
+    return <Image source={interior} style={style.interiorImage} />;
   };
   const [date, setDate] = useState(new Date());
 
   const db = firebase.firestore();
   const [hotels, setHotels] = useState();
 
-  useEffect(async() => {
-    
-    await db.collection("Hotel").doc(params.id)
-      .get()
-      .then((res) =>
-      
-      {
-        let data = {
-          title: res.data().title,
-          beds: res.data().beds,
-          interior: res.data().interior,
-          location: res.data().location,
-          price: res.data().price,
-          shower: res.data().shower,
-          url: res.data().url,
-          url2: res.data().url2,
-          url3: res.data().url3,
-          Room: res.data().Room,
-        }
-       setHotels(data);
-       console.log(data.Object.title,"==>>>>");
-      });
-
-  }, []);
-
+ 
   return (
     <ScrollView>
       <View style={{ flex: 1, backgroundColor: colors.white }}>
@@ -139,7 +115,7 @@ const DetailsScreen = ({ navigation, route }) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               keyExtractor={(_, key) => key.toString()}
-              //  data={element.interior}
+              data={houses.interiors}
               renderItem={({ item }) => <InteriorCard interior={item} />}
             /> 
 
@@ -183,20 +159,17 @@ const DetailsScreen = ({ navigation, route }) => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(_, key) => key.toString()}
-                data={houses?.interiors}
+                data={houses.interiors}
                 renderItem={({ item }) => <InteriorCard interior={item} />}
               />
 
-               {/* <TouchableOpacity
-                onPress={() => navigation.navigate("Payment")}
-                activeOpacity={0.7}
-                style={{ paddingLeft: 120 }}
-              ><Text>testing</Text></TouchableOpacity>   */}
+               
               <View style={style.bookNowBtn}> 
               
 
                 <TouchableOpacity 
-                  onPress={() => navigation.navigate("Payment",{checkinData:params.checkinData, roomData:hotels})}
+                  onPress={() => navigation.navigate("Payment",{checkinData:params.checkinData, roomData:hotels})
+                  }
                   activeOpacity={0.7}
                 >
                   <Text style={{ color: colors.white }}>Reserve</Text>

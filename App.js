@@ -33,6 +33,7 @@ import colors from './components/colors';
  import Next from "./src/next";
  import SearchRooms from "./src/views/screens/SearchRooms.jsx";
  import Rooms from "./src/views/screens/Rooms";
+ import Delivery from './src/views/screens/delivery';
 //  import UploadImage from "./navigation/screens/UploadImage";
 
 // import colors from './components/colors';
@@ -62,6 +63,8 @@ const App = () => {
    <Stack.Screen name ={ 'Next' } component={Next}/>
    <Stack.Screen name ={ 'Rooms' } component={Rooms}/>
    <Stack.Screen name ={ 'SearchRooms' } component={SearchRooms}/>
+   <Stack.Screen name ={ 'Delivery' } component={Delivery}/>
+
    {/* <Stack.Screen name ={ 'UploadImage' } component={UploadImage}/> */}
 
    </Stack.Navigator>

@@ -418,7 +418,7 @@ const Payment = ({navigation,route}) => {
                     flexDirection: 'row',alignItems:'center',backgroundColor:'#fff', paddingVertical:10,paddingHorizontal:10}}>
 
                         <TouchableOpacity
-                            onPress={() =>navigation.navigate('bookingScreen')}
+                            onPress={() =>navigation.navigate('Delivery')}
                             >
                             <Icons name="keyboard-backspace" size={28} color="#000"/>
                         </TouchableOpacity>

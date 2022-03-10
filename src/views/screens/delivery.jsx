@@ -16,12 +16,14 @@ import {
 export default function Delivery(navigation) {
     return(
     <View>
-    <View style={{width:"100%",height:250}}>
+    <View style={{width:"100%",height:'100%'}}>
+    
         <Image
-          source={require("../../../components/pic1.jpeg")}
+          source={require("../../../components/congrats.jpg")}
           style={styles.image}
           resizeMode="cover"
         />
+       
       </View>
     </View>
     )
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
       height: "100%",
       width: "100%",
       borderBottomLeftRadius: 100,
+      borderBottomRightRadius: 100,
       flex: 1,
     },
   });

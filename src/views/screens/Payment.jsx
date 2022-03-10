@@ -358,6 +358,7 @@ const Payment = ({navigation,route}) => {
             // alert("Payment Successfully");
             ToastAndroid.show('Your payment was successfully.', 2000);
             console.log(notificationKey);
+            navigation.navigate("Delivery");
             // db.ref('bookings').child(notificationKey).update({
             //     payment_status: 'payed',
             //     booking_status: 'successful'

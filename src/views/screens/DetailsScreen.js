@@ -168,7 +168,7 @@ const DetailsScreen = ({ navigation, route }) => {
               
 
                 <TouchableOpacity 
-                  onPress={() => navigation.navigate("Delivery",{checkinData:params.checkinData, roomData:hotels})
+                  onPress={() => navigation.navigate("Payment",{checkinData:params.checkinData, roomData:hotels})
                   }
                   activeOpacity={0.7}
                 >

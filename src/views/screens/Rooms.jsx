@@ -22,12 +22,16 @@ import firebase from "firebase";
 import BookingScreen from "../../../navigation/screens/BookingsScreen";
 import { useRoute } from "@react-navigation/native";
 
+
 const { width } = Dimensions.get("screen");
 const Rooms = ({ navigation, route }) => {
+  const params = useRoute().params;
   const house = route.params;
   const item = route.params;
   const title = route.params.title;
-  const params = useRoute().params;
+  const location = route.params.location;
+  
+  const checkinData = route.params.checkinData;
   
   console.log(title);
 
@@ -63,7 +67,7 @@ const Rooms = ({ navigation, route }) => {
               fontWeight: "bold",
             }}
           >
-            {title} Rooms
+            {title} Rooms 
           </Text>
         </View>
         {/* House image */}
@@ -77,7 +81,8 @@ const Rooms = ({ navigation, route }) => {
                   url: element.url2,
                   checkinData: params.checkinData,
                   title:element.title,
-                  price:element.price
+                  price:element.price,
+                  location:element.location
                 })
               }
             >

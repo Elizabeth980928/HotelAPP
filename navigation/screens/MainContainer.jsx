@@ -5,12 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import BookingsScreen from '../screens/BookingsScreen';
-import historyScreen from '../screens/HistoryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
-// import BookingsScreen from './navigation/screens/BookingsScreen';
-// // import HistoryScreen from './navigation/screens/HistoryScreen';
-// import ProfileScreen from './navigation/screens/ProfileScreen';
+import Receipt from './HistoryScreen';
 
 const bookingName = 'Home';
 const historyName = 'History';
@@ -49,15 +45,12 @@ function MainContainer(){
                 inactiveTintColor: 'grey',
                 labelStyle: { paddingBottom: 10, fontSize: 10 },
                 style: { padding: 10, height: 70}
-              }}>
-            
+              }}>            
 
              <Tab.Screen name = {bookingName} component = {BookingsScreen}/>
-             <Tab.Screen name = {historyName} component = {historyScreen}/>
+             <Tab.Screen name = {historyName} component = {Receipt}/>
              <Tab.Screen name = {profileName} component = {ProfileScreen}/>
                     
-
-                     
          </Tab.Navigator>
     );
 }

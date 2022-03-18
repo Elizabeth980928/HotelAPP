@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,8 +11,11 @@ import {
 } from "react-native";
 import { Button } from "react-native-paper";
 import colors from './components/colors';
-//import MapView from 'react-native-maps'
-
+import registerNNPushToken from 'native-notify';
+import { Platform } from 'react-native';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import axios from 'axios';
 
  import signIn from './components/signIn';
  import SignUp from "./components/signUp";
@@ -34,6 +37,7 @@ import colors from './components/colors';
  import SearchRooms from "./src/views/screens/SearchRooms.jsx";
  import Rooms from "./src/views/screens/Rooms";
  import Delivery from './src/views/screens/delivery';
+ 
 //  import UploadImage from "./navigation/screens/UploadImage";
 
 // import colors from './components/colors';
@@ -41,8 +45,12 @@ import colors from './components/colors';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator()
-const App = () => {
+const Stack = createNativeStackNavigator();
+
+export default function App ()  {
+   
+  registerNNPushToken(2320, 'C0oCkb1VMd1DH489dDouWE');
+
   return (
     <NavigationContainer>
    <Stack.Navigator initialRouteName = { 'getStarted' } screenOptions={{headerShown:false}}>
@@ -86,4 +94,3 @@ const styles = StyleSheet.create({
   },
    textStyle: { fontSize: 20, color: colors.grey, fontStyle: "italic" },
 });
-export default App;

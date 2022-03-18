@@ -40,6 +40,7 @@ const HomeScreen = ({ navigation, route }) => {
 
   const db = firebase.firestore();
   const [hotels, setHotels] = useState([]);
+  const [query, setQuery] = useState([]);
 
   // const { price } = route.params;
   // const loc = location;
@@ -123,18 +124,9 @@ const HomeScreen = ({ navigation, route }) => {
   // };
   const Card = ({ house }) => {
     return (
-      <Pressable
-        activeOpacity={0.8}
-        onPress={() =>
-         navigation.navigate("Rooms", {
-           id:element.id,
-           url: element.url,
-         })
-         }
-        //onPress={() => navigation.navigate("SearchRooms")}
-      >
+      
         <View>
-        {/* {hotels.map((element) => (
+          {/* {hotels.map((element) => (
            
             ))} */}
           {hotels.map((element) => (
@@ -143,43 +135,63 @@ const HomeScreen = ({ navigation, route }) => {
               <Text>{element.title}</Text>
               <Text>{element.location}</Text> */}
               {/* <Text>{element.price}</Text> */}
-          
-<TouchableOpacity onPress={() => navigation.navigate("SearchRooms",{title:element.title,price:element.price})}>
-        <View style={[style. card,{marginVertical:10}]}>
-          {/* House image */}
-        
-          <Image source={{uri: element.url} } style={style.cardImage} />
-          <View style={{ marginTop: 5}}>
-            {/* Title and price container */}
 
-            <View style={{ paddingHorizontal:15,Horizontal:5}}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("SearchRooms", {
+                    title: element.title,
+                    price: element.price,
+                    location: element.location,
+                  })
+                }
               >
-                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                  {/* {house.title} */} {element.title}
-                </Text>
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    color: colors.blue,
-                    fontSize: 16,
-                  }}
-                ></Text>
-              </View>
+                <View style={[style.card, { marginVertical: 10 }]}>
+                  {/* House image */}
 
-              {/* Location text */}
+                  <Image
+                    source={{ uri: element.url }}
+                    style={style.cardImage}
+                  />
+                  <View style={{ marginTop: 5 }}>
+                    {/* Title and price container */}
 
-              <Text style={{ color: colors.grey, fontSize: 14}}>
-                {/* {house.location} */}  {element.location}
-              </Text>
+                    <View style={{ paddingHorizontal: 15, Horizontal: 5 }}>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+                          {/* {house.title} */} {element.title}
+                        </Text>
+                       <View  style={{ flexDirection:'row',justifyContent:'flex-start'}}>
+                         <Text
+                          style={{
+                            fontWeight: "bold",
+                            color: colors.blue,
+                            fontSize: 16,
+                          }}
+                        ></Text>
+                        </View>
+                      </View>
 
-              {/* Facilities container */}
-              <View style={{ marginTop: 10, flexDirection: "row" }}>
-              {/* <View style={style.facility}>
+                      {/* Location text */}
+
+                      <View  style={{ flexDirection:'row',justifyContent:'flex-start'}}>
+                         <View><Icon type="ionicon" name="location"/></View>
+                          <Text
+                          style={{
+                            fontWeight: "bold",
+                            color: colors.grey,
+                            fontSize: 16,
+                          }}
+                        >{element.location}</Text>
+                        </View>
+
+                      {/* Facilities container */}
+                      <View style={{ marginTop: 10, flexDirection: "row" }}>
+                        {/* <View style={style.facility}>
                 <Icon name="hotel" size={18} />
                 <Text style={style.facilityText}>2</Text>
               </View>
@@ -187,81 +199,56 @@ const HomeScreen = ({ navigation, route }) => {
                 <Icon name="bathtub" size={18} />
                 <Text style={style.facilityText}>2</Text>
               </View> */}
-              {/* <View style={style.facility}>
+                        {/* <View style={style.facility}>
                 <Icon name="aspect-ratio" size={18} />
                 <Text style={style.facilityText}>100m</Text>
               </View> */}
-              <View style ={{paddingLeft:180,paddingTop:10}}>
-              <TouchableOpacity
-                 onPress={() => navigation.navigate("Map")}
-                activeOpacity={0.7}>
-                
-                  <Image
-                    style={style.profileImage}
-                    source={require("../../components/map.jpg")}
-                  />
-                </TouchableOpacity>
-              </View>
-         
-            </View>
-            </View>
-          </View>
-        </View>
-        </TouchableOpacity>
-        </>
+                        <View style={{ paddingLeft: 160, paddingTop: 10 }}>
+                          <TouchableOpacity
+                            onPress={() => navigation.navigate("Map")}
+                            activeOpacity={0.7}
+                          >
+                            <Image
+                              style={style.profileImage}
+                              source={require("../../components/map.jpg")}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </>
           ))}
         </View>
 
-        {/* for search rooms */}
-        {/* <SafeAreaView style={style.container}>
-          <View>
-            <TouchableOpacity
-              style={style.button}
-              onPress={() => bottomSheet.current.show()}
-            >
-              <Image
-                style={style.optionsCardImage}
-                source={require("../../components/cal3.jpg")}
-              />
-              <Text style={style.text}>Click to choose dates</Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView> */}
-      </Pressable>
+      
     );
   };
 
-  const Search = () => {
+  const Search = (queries) => {
     // const q = query(loc, where("location", "==", queries));
     // console.log(q);
+
     console.log("RUUNING", queries);
-    if (queries) {
-      loc
-        .where("location", "==", queries)
-        .get()
-        .then(async (querySnapshot) => {
-          await querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, "============= => ", doc.data());
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
+    db.collection("Hotel")
+      .where("location", "==", queries)
+      .get()
+      .then(async (querySnapshot) => {
+        let results = [];
+
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, "============= => ", doc.data());
+          results.push(doc.data());
         });
-    } else {
-      loc
-        .where("location", "==", "limpopo")
-        .get()
-        .then(async (querySnapshot) => {
-          await querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.data.id, "============= => ", doc.data);
-          });
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
-    }
+        console.log("res: ", "results");
+        setHotels(results);
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
   };
 
   return (
@@ -283,20 +270,26 @@ const HomeScreen = ({ navigation, route }) => {
           </Text>
         </View>
       </View>
-      <ScrollView >
+      <ScrollView>
         <View>
           {/* Input and sort button container */}
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              paddingHorizontal: 15,
+              paddingHorizontal: 25,
               width: 400,
             }}
           >
             <View style={style.searchInputContainer}>
               <Icon name="search" color={colors.grey} size={25} />
-              <TextInput placeholder="Search for location" />
+              <TextInput
+                placeholder="Search for location"
+                value={query}
+                onChangeText={(e) => {
+                  Search(e);
+                }}
+              />
             </View>
 
             <TouchableOpacity>
@@ -323,8 +316,6 @@ const HomeScreen = ({ navigation, route }) => {
             data={houses}
             renderItem={({ item }) => <Card house={item} />}
           />
-
-         
         </View>
       </ScrollView>
     </SafeAreaView>

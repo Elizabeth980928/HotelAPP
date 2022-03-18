@@ -16,6 +16,10 @@ import { Icon, Input, Button } from "react-native-elements";
 import Auth from "./services/Auth";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { registerIndieID } from 'native-notify';
+import axios from 'axios';
+import { auth } from "./firebase";
+
 
 
 const SignIn = ({ navigation }) => {
@@ -39,20 +43,22 @@ const SignIn = ({ navigation }) => {
   );
 
   const handleSignin = (values) => {
-    setloading(true);
-    Auth.SignIn(values, navigation).then(res => {
-      if (res.status == 'Failed') {
-        setalert(true);
-        setalertMessage(res.details);
-        setloading(false)
-      }
-      setalert(true);
-      setalertMessage(res.details);
-      setloading(false)
+    //setloading(true);
+    Auth.SignIn(values, navigation).then(async(res) => {
+      // if (res.status == 'Failed') {
+      //   setalert(true);
+      //   setalertMessage(res.details);
+      //   setloading(false)
+      // }
+      //setalert(true);
+     // setloading(false)
+      await registerIndieID("auth.currentUser.uid", 2242, 'fRLmT1LRTtSa4018bT9NeQ');
+      navigation.navigate("MainContainer");
     }).catch(err => {
-      setalert(true);
-      setloading(false)
-      setalertMessage(err);
+      // setalert(true);
+      // setloading(false)
+      // setalertMessage(err);
+      console.log(err);
     });
   }
 
@@ -116,6 +122,8 @@ const SignIn = ({ navigation }) => {
               <Input
                 placeholder="Email"
                 style={styles.input}
+                value={props.values.email}
+                onChangeText={props.handleChange('email')}
                 leftIcon={<Icon name="envelope-o" type="font-awesome" />}
               />
             </View>
@@ -123,15 +131,12 @@ const SignIn = ({ navigation }) => {
               <Input
                 placeholder="Password"
                 style={styles.input}
+                value={props.values.password}
+                onChangeText={props.handleChange('password')}
                 leftIcon={<Icon name="lock" type="font-awesome" />}
                 secureTextEntry={isPasswordVisibility}
               />
             </View>
-            </View>
-            
-              
-            )}
-              </Formik>
 
             <TouchableOpacity
               onPress={() => navigation.navigate("ResetPassword")}
@@ -155,7 +160,7 @@ const SignIn = ({ navigation }) => {
               }}
             >
               <Button
-                onPress={() => navigation.navigate("MainContainer")}
+                onPress={props.handleSubmit}
                 title="Sign In"
                 containerStyle={{
                   marginTop: 10,
@@ -183,6 +188,13 @@ const SignIn = ({ navigation }) => {
                 <Text style={{ fontWeight: "500", color: "red", fontSize:15 }}>Sign up</Text>
               </TouchableOpacity>
             </View>
+            </View>
+            
+              
+            )}
+              </Formik>
+
+            
           </View>
         </View>
       </View>

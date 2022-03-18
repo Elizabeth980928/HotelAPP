@@ -31,6 +31,12 @@ const DetailsScreen = ({ navigation, route }) => {
   const params = useRoute().params;
   console.log ("----", url);
   console.log(id)
+   
+  const house = route.params;
+  const item = route.params;
+  const title = route.params.title;
+  const location = route.params.location;
+  const price = route.params.price;
   // const params = useRoute().params
   // const house = params;
   // const item = params;
@@ -73,7 +79,7 @@ const DetailsScreen = ({ navigation, route }) => {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-               Lovers
+               {title}
                 {/* {hotels.title} */}
               </Text>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -89,7 +95,7 @@ const DetailsScreen = ({ navigation, route }) => {
            
             <Text style={{ fontSize: 16, color: colors.grey }}>
               {/* {hotels.location} */}
-              Lovers
+             {location}
             </Text>
 
            
@@ -128,7 +134,7 @@ const DetailsScreen = ({ navigation, route }) => {
                     fontSize: 18,
                   }}
                 >
-          R{houses?.price}  <Text>3500</Text> 
+          R{houses?.price}  <Text>{price}</Text> 
                 </Text>
                 <Text
                   style={{
@@ -168,7 +174,7 @@ const DetailsScreen = ({ navigation, route }) => {
               
 
                 <TouchableOpacity 
-                  onPress={() => navigation.navigate("Payment",{checkinData:params.checkinData, roomData:hotels})
+                  onPress={() => navigation.navigate("Payment",{checkinData:params.checkinData,price:params.price, title:params.title,roomData:hotels})
                   }
                   activeOpacity={0.7}
                 >

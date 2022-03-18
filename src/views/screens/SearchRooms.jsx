@@ -31,6 +31,7 @@ const searchroom = ({ navigation, route }) => {
   const house = route.params;
   const item = route.params;
   const title = route.params.title;
+  const location = route.params.location;
 
   const params = useRoute().params;
 
@@ -81,14 +82,14 @@ const searchroom = ({ navigation, route }) => {
         <View style={style.container}>
           <View style={style.checkin}>
             <Text style={style.checkInText}>Check - In</Text>
-
             <View>
               <DatePicker
                 style={style.datePicker}
-                date={date}
+                date={checkin}
                 mode="date"
+                minDate={new Date()}
                 // placeholder="select date"
-                format="YYYY-MM-DD"
+                // format="YYYY-MM-DD"
                 // minDate="2016-05-01"
                 // maxDate="2016-06-01"
                 confirmBtnText="Confirm"
@@ -106,6 +107,7 @@ const searchroom = ({ navigation, route }) => {
                 }}
                 onDateChange={(date) => {
                   setCheckin(date);
+                  console.log(date);
                 }}
               />
             </View>
@@ -115,10 +117,11 @@ const searchroom = ({ navigation, route }) => {
             <DatePicker
               style={style.datePicker}
               // style={{ width: 165 }}
-              date={date}
+              date={checkout}
+              minDate={checkin? checkin: new Date()}
               mode="date"
               // placeholder="select date"
-              format="YYYY-MM-DD"
+              //format="YYYY-MM-DD"
               // minDate="2016-05-01"
               // maxDate="2016-06-01"
               confirmBtnText="Confirm"
@@ -136,6 +139,7 @@ const searchroom = ({ navigation, route }) => {
               }}
               onDateChange={(date) => {
                 setcheckout(date);
+                console.log(date);
               }}
             />
           </View>
@@ -232,6 +236,7 @@ const searchroom = ({ navigation, route }) => {
                   checkin: checkin,
                   checkout: checkout,
                   guest: guest,
+                  location:location
                 },
               })
             }

@@ -53,9 +53,9 @@ const ProfileScreen = ({ navigation }) => {
           style={styles.image}
           resizeMode="cover"
         />
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
         <Icon name="add" color={colors.grey} size={25} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       
       </View>
 
@@ -83,7 +83,7 @@ const ProfileScreen = ({ navigation }) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={styles.textStyle}>Elizabeth</Text>
+                {/* <Text style={styles.textStyle}>Elizabeth</Text> */}
                 <Image
                   style={{ height: 50, width: 50, borderRadius: 25 }}
                   source={require("../../components/portia.jpg")}

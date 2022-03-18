@@ -136,22 +136,25 @@ const HomeScreen = ({ navigation, route }) => {
               <Text>{element.location}</Text> */}
               {/* <Text>{element.price}</Text> */}
 
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("SearchRooms", {
+            
+                <View style={[style.card, { marginVertical: 10 }]}>
+                  {/* House image */}
+
+                  <TouchableOpacity
+                    onPress={() =>
+                    navigation.navigate("SearchRooms", {
                     title: element.title,
                     price: element.price,
                     location: element.location,
                   })
                 }
               >
-                <View style={[style.card, { marginVertical: 10 }]}>
-                  {/* House image */}
-
                   <Image
                     source={{ uri: element.url }}
                     style={style.cardImage}
                   />
+                  </TouchableOpacity>
+                  
                   <View style={{ marginTop: 5 }}>
                     {/* Title and price container */}
 
@@ -189,36 +192,29 @@ const HomeScreen = ({ navigation, route }) => {
                         >{element.location}</Text>
                         </View>
 
-                      {/* Facilities container */}
+                   
                       <View style={{ marginTop: 10, flexDirection: "row" }}>
-                        {/* <View style={style.facility}>
-                <Icon name="hotel" size={18} />
-                <Text style={style.facilityText}>2</Text>
-              </View>
-              <View style={style.facility}>
-                <Icon name="bathtub" size={18} />
-                <Text style={style.facilityText}>2</Text>
-              </View> */}
-                        {/* <View style={style.facility}>
-                <Icon name="aspect-ratio" size={18} />
-                <Text style={style.facilityText}>100m</Text>
-              </View> */}
+              
                         <View style={{ paddingLeft: 160, paddingTop: 10 }}>
+
                           <TouchableOpacity
                             onPress={() => navigation.navigate("Map")}
                             activeOpacity={0.7}
-                          >
+                           >
                             <Image
                               style={style.profileImage}
-                              source={require("../../components/map.jpg")}
+                              source={require("../../components/map1.jpg")}
                             />
                           </TouchableOpacity>
+
                         </View>
                       </View>
+
+                      
                     </View>
                   </View>
                 </View>
-              </TouchableOpacity>
+              
             </>
           ))}
         </View>
@@ -332,7 +328,7 @@ const style = StyleSheet.create({
   profileImage: {
     height: 50,
     width: 50,
-    borderRadius: 25,
+    borderRadius: 15,
     marginLeft: 100,
     marginTop: -50,
   },

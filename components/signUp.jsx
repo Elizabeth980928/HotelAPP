@@ -107,7 +107,7 @@ const SignUp = ({ navigation }) => {
           });
          
         });
-      // navigation.navigate("MainContainer");
+       navigation.navigate("MainContainer");
      
     } catch (error) {
       setvisible(true);

@@ -53,12 +53,13 @@ const HomeScreen = ({navigation}) => {
     return (
       
      
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate('DetailsScreen', house)}>
         <View style={style.card}>
           {/* House image */}
+          <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('DetailsScreen', house)}>
           <Image source={house.image} style={style.cardImage} />
+          </TouchableOpacity>
           <View style={{marginTop: 10}}>
             {/* Title and price container */}
             <View
@@ -101,7 +102,7 @@ const HomeScreen = ({navigation}) => {
           
         </View>
         
-      </TouchableOpacity>
+      
      
       
     );

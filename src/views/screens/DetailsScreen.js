@@ -169,9 +169,11 @@ const DetailsScreen = ({ navigation, route }) => {
                 renderItem={({ item }) => <InteriorCard interior={item} />}
               />
 
-               
+
+                     
+
               <View style={style.bookNowBtn}> 
-              
+            
 
                 <TouchableOpacity 
                   onPress={() => navigation.navigate("Payment",{checkinData:params.checkinData,price:params.price, title:params.title,roomData:hotels})
@@ -261,6 +263,7 @@ const style = StyleSheet.create({
     
     
   },
+ 
   iconContainer: {
     position: "absolute",
     height: 40,

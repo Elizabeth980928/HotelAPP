@@ -16,6 +16,8 @@ import {
 } from "react-native";
 import colors from "../../src/consts/colors.js";
 import Icon from "react-native-vector-icons/MaterialIcons";
+//import { LogoNodejs } from 'react-ionicons'
+
 const { width } = Dimensions.get("screen");
 import houses from "../../src/consts/houses";
 //import { TouchableOpacity } from "react-native-gesture-handler";
@@ -182,7 +184,8 @@ const HomeScreen = ({ navigation, route }) => {
                       {/* Location text */}
 
                       <View  style={{ flexDirection:'row',justifyContent:'flex-start'}}>
-                         <View><Icon type="ionicon" name="location"/></View>
+                         {/* <View><Icon type="ionicon" name="location"/></View> */}
+                         <Icon name="room" color={colors.purple} size={25} />
                           <Text
                           style={{
                             fontWeight: "bold",
@@ -196,8 +199,8 @@ const HomeScreen = ({ navigation, route }) => {
                       <View style={{ marginTop: 10, flexDirection: "row" }}>
               
                         <View style={{ paddingLeft: 160, paddingTop: 10 }}>
-
-                          <TouchableOpacity
+                        
+                          {/* <TouchableOpacity
                             onPress={() => navigation.navigate("Map")}
                             activeOpacity={0.7}
                            >
@@ -205,7 +208,8 @@ const HomeScreen = ({ navigation, route }) => {
                               style={style.profileImage}
                               source={require("../../components/map1.jpg")}
                             />
-                          </TouchableOpacity>
+                          </TouchableOpacity> */}
+                         
 
                         </View>
                       </View>
@@ -287,12 +291,21 @@ const HomeScreen = ({ navigation, route }) => {
                 }}
               />
             </View>
+            <TouchableOpacity
+                      onPress={() => navigation.navigate("Map")}
+                      activeOpacity={0.7}
+                    >
+                      <View style={style.sortBtn}>
+                        <Icon name="room" color={colors.white} size={25} />
+                      </View>
+                    </TouchableOpacity>
 
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <View style={style.sortBtn}>
                 <Icon name="tune" color={colors.white} size={25} />
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
           </View>
 
           {/* Render list options */}

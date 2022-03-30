@@ -84,10 +84,10 @@ const ProfileScreen = ({ navigation }) => {
                 }}
               >
                 {/* <Text style={styles.textStyle}>Elizabeth</Text> */}
-                <Image
+                {/* <Image
                   style={{ height: 50, width: 50, borderRadius: 25 }}
                   source={require("../../components/portia.jpg")}
-                />
+                /> */}
               </View>
   
               <View style={styles.inputContainer}>
